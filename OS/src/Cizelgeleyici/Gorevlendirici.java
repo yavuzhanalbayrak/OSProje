@@ -7,12 +7,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Gorevlendirici {
-	public Queue realTime = new LinkedList<Proses>();	//Gerçek zamanlı proses kuyruğu
+	public Queue realTime = new LinkedList<ProsesYonetici>();	//Gerçek zamanlı proses kuyruğu
 	
 	//Kullanıcı proses kuyruğu
-	public Queue user1 = new LinkedList<Proses>();
-	public Queue user2 = new LinkedList<Proses>();
-	public Queue user3 = new LinkedList<Proses>();
+	public Queue user1 = new LinkedList<ProsesYonetici>();
+	public Queue user2 = new LinkedList<ProsesYonetici>();
+	public Queue user3 = new LinkedList<ProsesYonetici>();
 	
 	static int saniye;
 	static int kontrolId = -1;
@@ -21,7 +21,7 @@ public class Gorevlendirici {
 	static int kontrolPatlama = -1;
 	
 	//Proses önceliğe göre kuyruklara eklenir.
-	public void ekle(Proses p) {
+	public void ekle(ProsesYonetici p) {
 		if(p.oncelik == 0) {
 			realTime.add(p);
 		}
@@ -36,7 +36,7 @@ public class Gorevlendirici {
 		}
 	}
 	
-	public void calistir(Proses p) throws IOException {
+	public void calistir(ProsesYonetici p) throws IOException {
 		ProsesListesi plist=new ProsesListesi();
 		Gorevlendirici gorevlendirici = new Gorevlendirici();
 		Timer myTimer = new Timer();
@@ -52,9 +52,14 @@ public class Gorevlendirici {
 						plist.prosesler.remove(i--);	//eklenen prosesi listeden silme.
 					}
 				}
-				gorevlendirici.yazdir(gorevlendirici, p);
+				try {
+					gorevlendirici.yazdir(gorevlendirici, p);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
-				//Proses listesinde ve kuyruklarda proses kalmaması durumunda görevlendirici çalışmayı durdurur.
+			
 				if(gorevlendirici.realTime.size() == 0 && gorevlendirici.user1.size() == 0 && gorevlendirici.user2.size() == 0 && gorevlendirici.user3.size() == 0 && plist.prosesler.size() == 0) 
 				{
 					System.out.print("Görevlendirici Sonlandı...");
@@ -67,11 +72,11 @@ public class Gorevlendirici {
 		myTimer.schedule(gorev,0,100);
 	}
 	
-	public void yazdir(Gorevlendirici gorevlendirici, Proses p) {
+	public void yazdir(Gorevlendirici gorevlendirici, ProsesYonetici p) throws IOException {
 		
 		
 		if(gorevlendirici.realTime.size() != 0) {	//Gerçek zamanlı kuyruğunda proses varsa işleme alınır.(FCFS)
-			p = (Proses) gorevlendirici.realTime.peek();
+			p = (ProsesYonetici) gorevlendirici.realTime.peek();
 			
 			if(saniye - p.varisZamani>=20) {	//20 saniyeyi geçen prosesler sonlanır.
 				p.ProsesSonlandi(saniye--, p);
@@ -110,7 +115,7 @@ public class Gorevlendirici {
 		}
 		
 		else if(gorevlendirici.user1.size() != 0) {	//Kullanıcı Proses kuyruğunun ilk kuyruğu
-			p = (Proses) gorevlendirici.user1.poll();	//Proses kuyruktan alındı.
+			p = (ProsesYonetici) gorevlendirici.user1.poll();	//Proses kuyruktan alındı.
 			
 			if(saniye - p.varisZamani>=20) {
 				p.ProsesSonlandi(saniye--, p);
@@ -159,7 +164,7 @@ public class Gorevlendirici {
 		}
 		
 		else if(gorevlendirici.user2.size() != 0) {	//Kullanıcı Proses kuyruğunun ikinci kuyruğu
-			p = (Proses) gorevlendirici.user2.poll();
+			p = (ProsesYonetici) gorevlendirici.user2.poll();
 			
 			if(saniye - p.varisZamani>=20) {
 				p.ProsesSonlandi(saniye--, p);
@@ -207,7 +212,7 @@ public class Gorevlendirici {
 		
 		else if(gorevlendirici.user3.size() != 0) {	//Kullanıcı Proses kuyruğunun üçüncü kuyruğu
 			
-			p = (Proses) gorevlendirici.user3.poll();
+			p = (ProsesYonetici) gorevlendirici.user3.poll();
 
 			if(saniye - p.varisZamani>=20) {
 				p.ProsesSonlandi(saniye--, p);

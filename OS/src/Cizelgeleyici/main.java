@@ -15,7 +15,7 @@ import java.util.TimerTask;
 public class main {
 	
 	static int saniye=-1;
-	static Proses p = new Proses();
+	static ProsesYonetici p = new ProsesYonetici();
 	
 	public static void main(String[] args) throws IOException {
 		

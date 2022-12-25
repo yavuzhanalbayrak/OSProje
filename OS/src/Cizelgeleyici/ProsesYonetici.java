@@ -62,7 +62,7 @@ public class ProsesYonetici {
 				while (scanner.hasNextLine()) {
 				    System.out.println(scanner.nextLine());
 				}
-			a
+			
 		
 	}
 }

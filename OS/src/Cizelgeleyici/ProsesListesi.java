@@ -15,7 +15,7 @@ import java.util.Iterator;
 
 public class ProsesListesi {
 
-	public List<Proses> prosesler = new ArrayList<Proses>();
+	public List<ProsesYonetici> prosesler = new ArrayList<ProsesYonetici>();
 	
 	
 	//Proses listesi oluşurken dosyadan okuma işlemi yapıp bu bilgiler eşliğinde prosesleri oluşturup
@@ -32,7 +32,7 @@ public class ProsesListesi {
 			String[] dizi= line.split(", ");	//Vırgül ve boşlukların dışındaki karakterler çekildi
 			
 			for (int i=0;i<dizi.length;i++) {
-				Proses p = new Proses();
+				ProsesYonetici p = new ProsesYonetici();
 				p.id = id++;	//Proseslere 0'dan başlayıp id ataması yapar.
 				p.varisZamani = Integer.parseInt(dizi[i]);
 				p.oncelik = Integer.parseInt(dizi[++i]);

@@ -32,7 +32,7 @@ public ProsesListesi() throws IOException{
 		String[] dizi= line.split(", ");	//Vırgül ve boşlukların dışındaki karakterler çekildi
 		
 		for (int i=0;i<dizi.length;i++) {
-			ProsesYonetici p = new ProsesYonetici();
+			ProsesYonetici p = new ProsesYonetici();//Proses oluşturuldu.
 			p.id = id++;	//Proseslere 0'dan başlayıp id ataması yapar.
 			p.varisZamani = Integer.parseInt(dizi[i]);
 			p.oncelik = Integer.parseInt(dizi[++i]);
@@ -41,7 +41,6 @@ public ProsesListesi() throws IOException{
 			prosesler.add(p);
 			
 		}
-		
 		
 	}
 	bReader.close();

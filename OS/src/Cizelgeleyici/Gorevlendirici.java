@@ -53,8 +53,7 @@ public class Gorevlendirici {
 						plist.prosesler.remove(i--);	//eklenen prosesi listeden silme.
 					}
 				}
-				
-
+	
 				try {
 					gorevlendirici.yazdir(gorevlendirici, p);
 				} catch (IOException e) {
@@ -80,8 +79,7 @@ public class Gorevlendirici {
 	
 	public void yazdir(Gorevlendirici gorevlendirici, ProsesYonetici p) throws IOException, InterruptedException {
 		
-		
-
+		//20 saniyeyi aşan prosesler kontrol edilip sonlandırılır.
 		for(int i=0;i<realTime.size();i++) {
 			p = (ProsesYonetici) gorevlendirici.realTime.poll();
 			if(saniye - p.varisZamani>20) {	//20 saniyeyi geçen prosesler sonlanır.
@@ -137,14 +135,7 @@ public class Gorevlendirici {
 			}
 			else gorevlendirici.user3.add(p);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		if(gorevlendirici.realTime.size() != 0) {	//Gerçek zamanlı kuyruğunda proses varsa işleme alınır.(FCFS)
 			p = (ProsesYonetici) gorevlendirici.realTime.peek();
 			
@@ -307,10 +298,7 @@ public class Gorevlendirici {
 					kontrolPatlama=p.patlamaZamani;
 					kontrolRenk=p.renk;
 				}
-				
-			
-			
-			
+	
 		}
 		saniye++;
 	}

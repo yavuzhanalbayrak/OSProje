@@ -35,6 +35,7 @@ public class ProsesYonetici {
 	}
 	public void ProsesYurutuluyor(int saniye , ProsesYonetici p) throws IOException {
 		
+		//Proses oluşturma.
 		List<String> params = java.util.Arrays.asList( "java", "-jar","Process.jar",Integer.toString(saniye),Integer.toString(p.id),
 				Integer.toString(p.oncelik),Integer.toString(p.patlamaZamani),"yurutuluyor",p.renk);
 				ProcessBuilder builder = new ProcessBuilder(params);
@@ -71,7 +72,6 @@ public class ProsesYonetici {
 				process.destroy();	
 	}
 	
-	
 public void ProsesZamanAsimi(int saniye , ProsesYonetici p) throws IOException {
 		List<String> params = java.util.Arrays.asList( "java", "-jar","Process.jar",Integer.toString(saniye),Integer.toString(p.id),
 				Integer.toString(p.oncelik),Integer.toString(p.patlamaZamani),"zamanAsimi",p.renk);
@@ -82,6 +82,5 @@ public void ProsesZamanAsimi(int saniye , ProsesYonetici p) throws IOException {
 				    System.out.println(scanner.nextLine());
 				}
 			
-		
 	}
 }

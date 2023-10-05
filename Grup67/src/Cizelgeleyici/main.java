@@ -19,7 +19,7 @@ public class main {
 	
 	//Ana Program.
 	public static void main(String[] args) throws IOException {
-		Gorevlendirici gorevlendirici = new Gorevlendirici();
-		gorevlendirici.calistir(p);
+		
+		Gorevlendirici.calistir(p);
 	}
 }

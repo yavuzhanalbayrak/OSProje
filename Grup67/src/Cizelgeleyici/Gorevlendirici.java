@@ -37,7 +37,7 @@ public class Gorevlendirici {
 		}
 	}
 	
-	public void calistir(ProsesYonetici p) throws IOException {
+	public static void calistir(ProsesYonetici p) throws IOException {
 		ProsesListesi plist=new ProsesListesi();
 		Gorevlendirici gorevlendirici = new Gorevlendirici();
 		Timer myTimer = new Timer();

@@ -17,11 +17,9 @@ public class main {
 	static int saniye=-1;
 	static ProsesYonetici p = new ProsesYonetici();
 	
+	//Ana Program.
 	public static void main(String[] args) throws IOException {
-		
-	
 		Gorevlendirici gorevlendirici = new Gorevlendirici();
 		gorevlendirici.calistir(p);
 	}
-
 }

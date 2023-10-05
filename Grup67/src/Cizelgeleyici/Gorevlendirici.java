@@ -19,6 +19,7 @@ public class Gorevlendirici {
 	static int kontrolVaris = -1;
 	static int kontrolOncelik = -1;
 	static int kontrolPatlama = -1;
+	static String kontrolRenk = "";
 	
 	//Proses önceliğe göre kuyruklara eklenir.
 	public void ekle(ProsesYonetici p) {
@@ -52,11 +53,13 @@ public class Gorevlendirici {
 						plist.prosesler.remove(i--);	//eklenen prosesi listeden silme.
 					}
 				}
-				
-
+	
 				try {
 					gorevlendirici.yazdir(gorevlendirici, p);
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -74,10 +77,9 @@ public class Gorevlendirici {
 		myTimer.schedule(gorev,0,100);
 	}
 	
-	public void yazdir(Gorevlendirici gorevlendirici, ProsesYonetici p) throws IOException {
+	public void yazdir(Gorevlendirici gorevlendirici, ProsesYonetici p) throws IOException, InterruptedException {
 		
-		
-
+		//20 saniyeyi aşan prosesler kontrol edilip sonlandırılır.
 		for(int i=0;i<realTime.size();i++) {
 			p = (ProsesYonetici) gorevlendirici.realTime.poll();
 			if(saniye - p.varisZamani>20) {	//20 saniyeyi geçen prosesler sonlanır.
@@ -133,20 +135,13 @@ public class Gorevlendirici {
 			}
 			else gorevlendirici.user3.add(p);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		if(gorevlendirici.realTime.size() != 0) {	//Gerçek zamanlı kuyruğunda proses varsa işleme alınır.(FCFS)
 			p = (ProsesYonetici) gorevlendirici.realTime.peek();
 			
 		
 				if(p.id != kontrolId && kontrolId != -1) {	//Askıya alınan proses ekran çıktısı.
-					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris);
+					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris,kontrolRenk);
 					kontrolId=-1;
 				}
 				if(p.durum == 0) {
@@ -180,7 +175,7 @@ public class Gorevlendirici {
 			
 			
 				if(p.id != kontrolId && kontrolId != -1) {
-					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris);
+					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris,kontrolRenk);
 					kontrolId=-1;
 				}
 				
@@ -214,6 +209,7 @@ public class Gorevlendirici {
 					kontrolOncelik=p.oncelik;
 					kontrolVaris=p.varisZamani;
 					kontrolPatlama=p.patlamaZamani;
+					kontrolRenk=p.renk;
 				}
 			
 			
@@ -225,7 +221,7 @@ public class Gorevlendirici {
 			
 
 				if(p.id != kontrolId && kontrolId != -1) {
-					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris);
+					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris,kontrolRenk);
 					kontrolId=-1;
 				}
 				
@@ -256,6 +252,7 @@ public class Gorevlendirici {
 					kontrolOncelik=p.oncelik;
 					kontrolVaris=p.varisZamani;
 					kontrolPatlama=p.patlamaZamani;
+					kontrolRenk=p.renk;
 				}
 			
 			
@@ -268,7 +265,7 @@ public class Gorevlendirici {
 
 			
 				if(p.id != kontrolId && kontrolId != -1) {
-					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris);
+					p.ProsesAskida(saniye, p, kontrolId, kontrolOncelik, kontrolPatlama, kontrolVaris,kontrolRenk);
 					kontrolId=-1;
 				}
 				
@@ -299,11 +296,9 @@ public class Gorevlendirici {
 					kontrolOncelik=p.oncelik;
 					kontrolVaris=p.varisZamani;
 					kontrolPatlama=p.patlamaZamani;
+					kontrolRenk=p.renk;
 				}
-				
-			
-			
-			
+	
 		}
 		saniye++;
 	}
